@@ -1,0 +1,5 @@
+*/.idea/
+.idea/
+/target/
+webTemplate.iml
+.DS_Store
