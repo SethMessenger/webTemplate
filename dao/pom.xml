@@ -8,25 +8,39 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>dao</artifactId>
-
     <name>dao</name>
     <!--  -->
     <url>http://www.example.com</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>1.7</maven.compiler.source>
-        <maven.compiler.target>1.7</maven.compiler.target>
+        <maven.compiler.source>${jdk.version}</maven.compiler.source>
+        <maven.compiler.target>${jdk.version}</maven.compiler.target>
     </properties>
 
     <dependencies>
+        <!--seth_component -->
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.11</version>
-            <scope>test</scope>
+            <groupId>com.seth.template</groupId>
+            <artifactId>component</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+        <!-- spring orm -->
+        <dependency>
+            <!-- 包含Spring对DAO特性集进行了扩展，使其支持 iBATIS、JDO、OJB、TopLink,
+            因为Hibernate已经独立成包了，现在不包含在这个包里了。这个jar文件里大部分的类都要
+            依赖spring-dao.jar里的类，用这个包时你需要同时包含spring-dao.jar包 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-orm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- 包含对Spring 对JDBC 数据访问进行封装的所有类。 外部依赖spring-beans，spring-dao -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <version>${spring.version}</version>
         </dependency>
     </dependencies>
 
@@ -37,7 +51,6 @@
                     <artifactId>maven-clean-plugin</artifactId>
                     <version>3.0.0</version>
                 </plugin>
-                <!-- see http://maven.apache.org/ref/current/maven-core/default-bindings.html#Plugin_bindings_for_jar_packaging -->
                 <plugin>
                     <artifactId>maven-resources-plugin</artifactId>
                     <version>3.0.2</version>
