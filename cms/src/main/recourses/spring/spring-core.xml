@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    						http://www.springframework.org/schema/context
+		                    http://www.springframework.org/schema/context/spring-context.xsd
+   							http://www.springframework.org/schema/tx
+          					http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     						http://www.springframework.org/schema/aop
+     						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+   							http://www.springframework.org/schema/mvc
+						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+							http://www.springframework.org/schema/task
+							http://www.springframework.org/schema/task/spring-task-4.0.xsd ">
+
+    <!-- test/prod配置文件地址 -->
+    <!-- prod环境配置文件，单独进行管理 -->
+    <context:property-placeholder order="1" location="file:/apps/conf/seth/config.properties" ignore-unresolvable="true" ignore-resource-not-found="true" />
+    <!-- 本地配置文件地址 -->
+    <context:property-placeholder order="2" location="classpath:config.properties" ignore-unresolvable="true" ignore-resource-not-found="true" />
+    <!-- 全包扫描，不扫描controller -->
+    <context:component-scan base-package="com.seth">
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!-- 加载子配置文件 -->
+    <import resource="classpath:/spring/spring-mvc.xml"/>
+    <import resource="classpath:/spring/spring-dao.xml"/>
+
+    <!-- EH缓存配置 -->
+    <bean id="cacheManager" class="org.springframework.cache.ehcache.EhCacheManagerFactoryBean">
+        <property name="configLocation" value="classpath:config/ehcache.xml"/>
+    </bean>
+    <!-- 加载定时任务 -->
+    <!--<task:annotation-driven/>-->
+    <!-- 后台定时任务自动扫描 -->
+    <!--<context:component-scan base-package="com.seth....."/>-->
+
+</beans>

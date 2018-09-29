@@ -20,6 +20,51 @@
 
     <dependencies>
 
+        <!-- Spring components BEGIN -->
+        <dependency>
+            <!-- 包含Web应用开发时，用到Spring框架时所需的核心类，包括自动载入WebApplicationContext特性的类、Struts与JSF集成类、文件上传的支持类、Filter类和大量工具辅助类 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <!-- 包含SpringMVC框架相关的所有类。包含国际化、标签、Theme、视图展现的FreeMarker、JasperReports、 Tiles、Velocity、XSLT相关类。
+            当然，如果你的应用使用了独立的MVC框架，则无需这个JAR文件里的任何类 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <!-- 提供 Socket通信， web端的推送功能 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-websocket</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <!-- Spring 框架集成一些基础的报文传送应用 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-messaging</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <!-- spring用于XML文件处理的，下方两个也是其必要组件 -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-oxm</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <dependency>
+            <!-- Uses Castor for XML -->
+            <groupId>org.codehaus.castor</groupId>
+            <artifactId>castor</artifactId>
+            <version>1.2</version>
+        </dependency>
+        <dependency>
+            <!-- Castor need this -->
+            <groupId>xerces</groupId>
+            <artifactId>xercesImpl</artifactId>
+            <version>2.8.1</version>
+        </dependency>
+
         <dependency>
             <!-- java servlet包 -->
             <groupId>javax.servlet</groupId>

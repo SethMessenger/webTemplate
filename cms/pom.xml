@@ -8,12 +8,9 @@
         <version>1.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
     <artifactId>cms</artifactId>
     <packaging>war</packaging>
-
     <name>cms Maven Webapp</name>
-    <!-- FIXME change it to the project's website -->
     <url>http://www.example.com</url>
 
     <properties>
@@ -29,18 +26,12 @@
             <artifactId>component</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <!-- spring websocket-->
+        <!--seth_service -->
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-websocket</artifactId>
-            <version>${spring.version}</version>
+            <groupId>com.seth.template</groupId>
+            <artifactId>service</artifactId>
+            <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-messaging</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <!-- Spring components END -->
 
         <!-- freemarker  -->
         <dependency>
@@ -68,6 +59,13 @@
             <artifactId>shiro-spring</artifactId>
             <version>1.2.4</version>
         </dependency>
+        <!-- 防止XSS注入攻击 -->
+        <dependency>
+            <groupId>com.navercorp.lucy</groupId>
+            <artifactId>lucy-xss-servlet</artifactId>
+            <version>2.0.0</version>
+        </dependency>
+
 
     </dependencies>
 

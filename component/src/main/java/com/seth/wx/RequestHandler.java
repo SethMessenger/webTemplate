@@ -1,6 +1,8 @@
 package com.seth.wx;
 
 
+import com.seth.utils.MD5Utils;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -8,7 +10,7 @@ import java.net.URLEncoder;
 import java.util.*;
 
 
-/*
+/**
  '微信支付服务器签名支付请求请求类
  '============================================================================
  'api说明：
@@ -167,15 +169,13 @@ public class RequestHandler {
 		System.out.println("第一步：对参数按照key=value的格式，并按照参数名ASCII字典序排序如下:\n" + sb);
 		sb.append("key=" + this.getKey());
 		System.out.println("第二步：拼接API密钥：:\n" + sb);
-		String sign = MD5Util.MD5Encode(sb.toString(), "UTF-8").toUpperCase();
+		String sign = MD5Utils.MD5Encode(sb.toString(), "UTF-8").toUpperCase();
 		System.out.println("packge md5签名---<1>---:\n" + sign);
 		
 		return sign;
 
 	}
-	
 
-	
 	/**
 	 * 创建package签名
 	 */
@@ -195,7 +195,7 @@ public class RequestHandler {
 		// 算出摘要
 		String enc = TenpayUtil2.getCharacterEncoding(this.request,
 				this.response);
-		String sign = MD5Util.MD5Encode(sb.toString(), enc).toLowerCase();
+		String sign = MD5Utils.MD5Encode(sb.toString(), enc).toLowerCase();
 
 		String tenpaySign = this.getParameter("sign").toLowerCase();
 

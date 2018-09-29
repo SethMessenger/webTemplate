@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:task="http://www.springframework.org/schema/task"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+    						http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
+    						http://www.springframework.org/schema/context
+   							http://www.springframework.org/schema/context/spring-context-2.5.xsd
+   							http://www.springframework.org/schema/tx
+          					http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+     						http://www.springframework.org/schema/aop
+     						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+   							http://www.springframework.org/schema/mvc
+						    http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+							http://www.springframework.org/schema/task
+							http://www.springframework.org/schema/task/spring-task-4.0.xsd ">
+
+    <!-- 扫描指定包下的controller -->
+    <context:component-scan base-package="com.seth" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+    </context:component-scan>
+
+    <!-- 开启内容协商配置 -->
+    <mvc:annotation-driven/>
+    <!-- 拦截器链 -->
+    <mvc:interceptors>
+        <!-- 请求日志打印器 -->
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.seth.component.interceptor.RequestLogInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+
+    <!--静态资源映射-->
+    <!--本项目把静态资源放在了webapp的statics目录下，资源映射如下-->
+    <!--<mvc:resources mapping="/css/**" location="/WEB-INF/statics/css/"/>-->
+    <!--<mvc:resources mapping="/js/**" location="/WEB-INF/statics/js/"/>-->
+    <!--<mvc:resources mapping="/image/**" location="/WEB-INF/statics/image/"/>-->
+
+    <bean id="contentNegotiationManager" class="org.springframework.web.accept.ContentNegotiationManagerFactoryBean">
+        <property name="favorPathExtension" value="true" />
+        <property name="favorParameter" value="true" />
+        <property name="parameterName" value="format" />
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="mediaTypes">
+            <map>
+                <entry key="json" value="application/json;charset=utf-8" />
+                <entry key="xml" value="application/xml;charset=utf-8" />
+                <entry key="html" value="text/html;charset=utf-8" />
+                <entry key="jsonp" value="application/javascript;charset=utf-8" />
+                <!--<entry key="vhtml" value="text/html;charset=UTF-8" />-->
+            </map>
+        </property>
+        <property name="defaultContentType" value="application/json" />
+    </bean>
+
+    <!-- 视图解析器 -->
+    <!--springmvc中根据后缀不同返回不同格式的配置 ，如，XXX.json  返回json格式，XXX.xml   返回xml格式，xxx       返回jsp -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="0"/>
+        <property name="contentNegotiationManager" ref="contentNegotiationManager" />
+        <property name="viewResolvers">
+            <list>
+                <!-- 通过把返回的逻辑视图名称去匹配定义好的视图bean对象 -->
+                <!--<bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />-->
+                <!-- 将需要跳转的JSP的目录、优先级、视图类进行配置 -->
+                <!--<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">-->
+                    <!--<property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />-->
+                    <!--<property name="contentType" value="text/html" />-->
+                    <!--<property name="prefix" value="/WEB-INF/jsp/" />-->
+                    <!--<property name="suffix" value=".jsp" />-->
+                    <!--<property name="order" value="2" />-->
+                <!--</bean>-->
+                <!-- freemarker的师徒解析器配置 -->
+                <bean id="freeMarkerViewResolver" class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+                    <property name="suffix" value=".ftl"/>
+                    <!--<property name="cache" value="false"/>-->
+                    <property name="contentType" value="text/html;charset=UTF-8" />
+                    <!-- 此变量值为pageContext.request, 页面使用方法：request.contextPath -->
+                    <property name="requestContextAttribute" value="request"/>
+                    <property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />
+                    <property name="allowSessionOverride" value="true" />
+                    <property name="allowRequestOverride" value="true" />
+                    <property name="exposeSpringMacroHelpers" value="false" />
+                    <property name="exposeRequestAttributes" value="true" />
+                    <property name="exposeSessionAttributes" value="true" />
+                </bean>
+            </list>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="com.seth.component.viewResolver.JacksonJsonView"></bean>
+                <bean class="com.seth.component.viewResolver.JsonPView"></bean>
+                <!-- XML视图未实现，待实现后进行配置展示 -->
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <property name="marshaller">
+                        <bean class="org.springframework.oxm.castor.CastorMarshaller">
+                            <property name="validating" value="false"/>
+                        </bean>
+                    </property>
+                </bean>
+                <!--<bean class="com.seth.component.viewResolver.XmlView"></bean>-->
+            </list>
+        </property>
+    </bean>
+
+    <!-- freemarker的配置 -->
+    <bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <property name="templateLoaderPath" value="/WEB-INF/template/freemarker/"/>
+        <property name="defaultEncoding" value="UTF-8" />
+        <property name="freemarkerSettings">
+            <props>
+                <prop key="tag_syntax">auto_detect</prop>
+                <prop key="template_update_delay">1</prop>
+                <prop key="defaultEncoding">UTF-8</prop>
+                <prop key="url_escaping_charset">UTF-8</prop>
+                <prop key="locale">zh_CN</prop>
+                <prop key="boolean_format">true,false</prop>
+                <prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+                <prop key="date_format">yyyy-MM-dd</prop>
+                <prop key="time_format">HH:mm:ss</prop>
+                <prop key="number_format">0.######</prop>
+                <prop key="whitespace_stripping">true</prop>
+                <!--<prop key="auto_import">/WEB-INF/template/freemarker/test.ftl as t</prop>-->
+            </props>
+        </property>
+    </bean>
+</beans>

@@ -1,0 +1,52 @@
+<head xmlns="http://www.w3.org/1999/html">
+    <title>Netty WebSocket DEMO</title>
+</head>
+<body>
+<script type="text/javascript">
+    var socket;
+    if (!window.WebSocket) {
+        window.WebSocket = window.MozWebSocket;
+    }
+    if (window.WebSocket) {
+        socket = new WebSocket("ws://127.0.0.1:2048/ws");
+//        socket = new WebSocket("ws://39.106.221.125:2048/ws");
+        socket.onmessage = function(event) {
+            var ta = document.getElementById('responseText');
+            ta.value = ta.value + '\n' + event.data + "\n";
+        };
+        socket.onopen = function(event) {
+            var ta = document.getElementById('responseText');
+            ta.value = "连接开启!" + "\n";
+        };
+        socket.onclose = function(event) {
+            var ta = document.getElementById('responseText');
+            ta.value = ta.value + "连接被Server关闭" + "\n";
+        };
+    } else {
+        alert("你的浏览器不支持！");
+    }
+
+    function send(message) {
+        if (!window.WebSocket) {
+            return;
+        }
+        if (socket.readyState == WebSocket.OPEN) {
+            socket.send(message);
+        } else {
+            alert("连接没有开启.");
+        }
+    }
+</script>
+<form onsubmit="return false;">
+    <select name="message" onchange="send(this.form.message.value)">
+        <option value ="">请选择</option>
+        <option value ="{'userUuid':'meggieUuid','type':1,'data':'data'}">长连接登录</option>
+        <option value ="{'userUuid':'meggieUuid','type':2,'data':'data'}">长连接登出</option>
+        <option value ="{'userUuid':'meggieUuid','type':1,'data':'data'}">长连接规约(前后端自定义规约)</option>
+    </select>
+    <h3>输出：</h3>
+    <textarea id="responseText" style="width: 500px; height: 300px;"></textarea>
+    <input type="button" onclick="javascript:document.getElementById('responseText').value=''" value="清空">
+</form>
+</body>
+</html>

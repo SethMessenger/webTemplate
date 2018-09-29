@@ -24,20 +24,20 @@ public class DateUtil {
     }
     
     
-    //yyyyMMddHHmmss
+    /** yyyyMMddHHmmss */
 	public static final DateUtil COMPAT_HHmmss = new DateUtil(new SimpleDateFormat("yyyyMMddHHmmss"));
     
-    //紧凑型日期格式，也就是纯数字类型yyyyMMdd
+    /** 紧凑型日期格式，也就是纯数字类型yyyyMMdd */
 	public static final DateUtil COMPAT = new DateUtil(new SimpleDateFormat("yyyyMMdd"));
 	
-	//常用日期格式，yyyy-MM-dd
+	/** 常用日期格式，yyyy-MM-dd */
 	public static final DateUtil COMMON = new DateUtil(new SimpleDateFormat("yyyy-MM-dd"));
 	public static final DateUtil COMMON_FULL = new DateUtil(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
 	
-	//使用斜线分隔的，西方多采用，yyyy/MM/dd
+	/** 使用斜线分隔的，西方多采用，yyyy/MM/dd */
 	public static final DateUtil SLASH = new DateUtil(new SimpleDateFormat("yyyy/MM/dd"));
 	
-	//中文日期格式常用，yyyy年MM月dd日
+	/** 中文日期格式常用，yyyy年MM月dd日 */
 	public static final DateUtil CHINESE = new DateUtil(new SimpleDateFormat("yyyy年MM月dd日"));
 	public static final DateUtil CHINESE_FULL = new DateUtil(new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒"));
 	
