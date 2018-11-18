@@ -1,6 +1,6 @@
 package com.seth.component.viewResolver;
 
-import com.seth.component.bean.base.BaseView;
+import com.seth.bean.base.BaseView;
 import org.springframework.web.servlet.view.json.MappingJackson2JsonView;
 import java.util.Iterator;
 import java.util.Map;

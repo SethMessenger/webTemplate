@@ -1,13 +1,12 @@
 package com.seth.cms.controller;
 
-import com.seth.component.bean.DeployView;
-import com.seth.component.bean.base.BaseView;
+import com.seth.bean.base.BaseView;
+import com.seth.bean.base.DeployView;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Date;

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.seth.dao.mapper.SUserTaskLogMapper">
+  <resultMap id="BaseResultMap" type="com.seth.dao.domain.SUserTaskLog">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="gmt_create" jdbcType="DATE" property="gmtCreate" />
+    <result column="gmt_modified" jdbcType="DATE" property="gmtModified" />
+    <result column="is_del" jdbcType="TINYINT" property="isDel" />
+    <result column="operator" jdbcType="VARCHAR" property="operator" />
+    <result column="task_uuid" jdbcType="VARCHAR" property="taskUuid" />
+    <result column="user_uuid" jdbcType="INTEGER" property="userUuid" />
+    <result column="commit_time" jdbcType="DATE" property="commitTime" />
+    <result column="val" jdbcType="INTEGER" property="val" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, gmt_create, gmt_modified, is_del, operator, task_uuid, user_uuid, commit_time, 
+    val, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from s_user_task_log
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from s_user_task_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.seth.dao.domain.SUserTaskLog">
+    insert into s_user_task_log (id, gmt_create, gmt_modified, 
+      is_del, operator, task_uuid, 
+      user_uuid, commit_time, val, 
+      remark)
+    values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=DATE}, #{gmtModified,jdbcType=DATE}, 
+      #{isDel,jdbcType=TINYINT}, #{operator,jdbcType=VARCHAR}, #{taskUuid,jdbcType=VARCHAR}, 
+      #{userUuid,jdbcType=INTEGER}, #{commitTime,jdbcType=DATE}, #{val,jdbcType=INTEGER}, 
+      #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.seth.dao.domain.SUserTaskLog">
+    insert into s_user_task_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified,
+      </if>
+      <if test="isDel != null">
+        is_del,
+      </if>
+      <if test="operator != null">
+        operator,
+      </if>
+      <if test="taskUuid != null">
+        task_uuid,
+      </if>
+      <if test="userUuid != null">
+        user_uuid,
+      </if>
+      <if test="commitTime != null">
+        commit_time,
+      </if>
+      <if test="val != null">
+        val,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=DATE},
+      </if>
+      <if test="gmtModified != null">
+        #{gmtModified,jdbcType=DATE},
+      </if>
+      <if test="isDel != null">
+        #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="operator != null">
+        #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="taskUuid != null">
+        #{taskUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        #{userUuid,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null">
+        #{commitTime,jdbcType=DATE},
+      </if>
+      <if test="val != null">
+        #{val,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.seth.dao.domain.SUserTaskLog">
+    update s_user_task_log
+    <set>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=DATE},
+      </if>
+      <if test="gmtModified != null">
+        gmt_modified = #{gmtModified,jdbcType=DATE},
+      </if>
+      <if test="isDel != null">
+        is_del = #{isDel,jdbcType=TINYINT},
+      </if>
+      <if test="operator != null">
+        operator = #{operator,jdbcType=VARCHAR},
+      </if>
+      <if test="taskUuid != null">
+        task_uuid = #{taskUuid,jdbcType=VARCHAR},
+      </if>
+      <if test="userUuid != null">
+        user_uuid = #{userUuid,jdbcType=INTEGER},
+      </if>
+      <if test="commitTime != null">
+        commit_time = #{commitTime,jdbcType=DATE},
+      </if>
+      <if test="val != null">
+        val = #{val,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.seth.dao.domain.SUserTaskLog">
+    update s_user_task_log
+    set gmt_create = #{gmtCreate,jdbcType=DATE},
+      gmt_modified = #{gmtModified,jdbcType=DATE},
+      is_del = #{isDel,jdbcType=TINYINT},
+      operator = #{operator,jdbcType=VARCHAR},
+      task_uuid = #{taskUuid,jdbcType=VARCHAR},
+      user_uuid = #{userUuid,jdbcType=INTEGER},
+      commit_time = #{commitTime,jdbcType=DATE},
+      val = #{val,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

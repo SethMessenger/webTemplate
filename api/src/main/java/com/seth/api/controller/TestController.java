@@ -1,7 +1,7 @@
 package com.seth.api.controller;
 
-import com.seth.service.bean.view.DeployView;
-import com.seth.service.bean.view.base.BaseView;
+import com.seth.bean.base.BaseView;
+import com.seth.bean.base.DeployView;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import java.util.Date;
  * @date 18/9/17
  */
 @Controller
-@RequestMapping("sethApi/test")
+@RequestMapping("test")
 public class TestController {
 
 
