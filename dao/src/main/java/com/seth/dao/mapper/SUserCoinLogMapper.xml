@@ -10,11 +10,11 @@
     <result column="user_uuid" jdbcType="VARCHAR" property="userUuid" />
     <result column="val" jdbcType="INTEGER" property="val" />
     <result column="log_type" jdbcType="INTEGER" property="logType" />
-    <result column="desc" jdbcType="VARCHAR" property="desc" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
     <result column="remark" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, gmt_create, gmt_modified, is_del, operator, user_uuid, val, log_type, desc, remark
+    id, gmt_create, gmt_modified, is_del, operator, user_uuid, val, log_type, description, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -29,11 +29,11 @@
   <insert id="insert" parameterType="com.seth.dao.domain.SUserCoinLog">
     insert into s_user_coin_log (id, gmt_create, gmt_modified, 
       is_del, operator, user_uuid, 
-      val, log_type, desc, 
+      val, log_type, description,
       remark)
     values (#{id,jdbcType=INTEGER}, #{gmtCreate,jdbcType=DATE}, #{gmtModified,jdbcType=DATE}, 
       #{isDel,jdbcType=TINYINT}, #{operator,jdbcType=VARCHAR}, #{userUuid,jdbcType=VARCHAR}, 
-      #{val,jdbcType=INTEGER}, #{logType,jdbcType=INTEGER}, #{desc,jdbcType=VARCHAR}, 
+      #{val,jdbcType=INTEGER}, #{logType,jdbcType=INTEGER}, #{description,jdbcType=VARCHAR},
       #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.seth.dao.domain.SUserCoinLog">
@@ -63,8 +63,8 @@
       <if test="logType != null">
         log_type,
       </if>
-      <if test="desc != null">
-        desc,
+      <if test="description != null">
+        description,
       </if>
       <if test="remark != null">
         remark,
@@ -95,8 +95,8 @@
       <if test="logType != null">
         #{logType,jdbcType=INTEGER},
       </if>
-      <if test="desc != null">
-        #{desc,jdbcType=VARCHAR},
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
@@ -127,8 +127,8 @@
       <if test="logType != null">
         log_type = #{logType,jdbcType=INTEGER},
       </if>
-      <if test="desc != null">
-        desc = #{desc,jdbcType=VARCHAR},
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
@@ -145,7 +145,7 @@
       user_uuid = #{userUuid,jdbcType=VARCHAR},
       val = #{val,jdbcType=INTEGER},
       log_type = #{logType,jdbcType=INTEGER},
-      desc = #{desc,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>

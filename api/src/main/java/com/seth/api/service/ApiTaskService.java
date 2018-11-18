@@ -23,5 +23,13 @@ public interface ApiTaskService {
      */
     UserTaskView queryUserTaskListByOpenUuid(String openId);
 
+    /**
+     * 用户完成任务
+     * @param openId
+     * @param appId
+     * @return
+     */
+    boolean completeTask(String openId, String appId);
+
 
 }

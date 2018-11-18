@@ -58,6 +58,24 @@ public enum MiniProTypeEnum {
         this.hotSort = hotSort;
     }
 
+    public static boolean ifExitApp(String appId){
+        for(MiniProTypeEnum e : MiniProTypeEnum.values()){
+            if(e.appId.equals(appId)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static MiniProTypeEnum getByAppId(String appId) {
+        for(MiniProTypeEnum e : MiniProTypeEnum.values()){
+            if(e.appId.equals(appId)){
+                return e;
+            }
+        }
+        return null;
+    }
+
     public int getTimeSort() {
         return timeSort;
     }

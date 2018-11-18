@@ -19,9 +19,24 @@ public class SUserCoinLog {
 
     private Integer logType;
 
-    private String desc;
+    private String description;
 
     private String remark;
+
+    public SUserCoinLog() {
+    }
+
+    public SUserCoinLog(String operator, String userUuid, Integer val, Integer logType, String desc, String remark) {
+        this.gmtCreate = new Date();
+        this.gmtModified = gmtCreate;
+        this.isDel = (byte)0;
+        this.operator = operator;
+        this.userUuid = userUuid;
+        this.val = val;
+        this.logType = logType;
+        this.description = desc;
+        this.remark = remark;
+    }
 
     public Integer getId() {
         return id;
@@ -87,12 +102,12 @@ public class SUserCoinLog {
         this.logType = logType;
     }
 
-    public String getDesc() {
-        return desc;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDesc(String desc) {
-        this.desc = desc == null ? null : desc.trim();
+    public void setDescription(String description) {
+        this.description = description == null ? null : description.trim();
     }
 
     public String getRemark() {

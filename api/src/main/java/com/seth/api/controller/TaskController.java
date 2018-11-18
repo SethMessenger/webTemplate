@@ -45,4 +45,25 @@ public class TaskController {
         return new ObjectView<UserTaskView>(taskView);
     }
 
+    /**
+     * 用户完成任务统计
+     * @param openId
+     * @param appId
+     * @return
+     */
+    @RequestMapping("complete")
+    public BaseView completeTask(@RequestParam(required = true) String openId,
+                               @RequestParam(required = true) String appId){
+        BaseView resultView = BaseView.FAIL;
+        try {
+            boolean flag = this.apiTaskService.completeTask(openId, appId);
+            if(flag){
+                resultView = BaseView.SUCCESS;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return resultView;
+    }
+
 }

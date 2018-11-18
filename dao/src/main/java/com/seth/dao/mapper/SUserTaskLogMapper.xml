@@ -17,6 +17,18 @@
     id, gmt_create, gmt_modified, is_del, operator, task_uuid, user_uuid, commit_time, 
     val, remark
   </sql>
+  <select id="selectByParams" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from s_user_task_log
+    where is_del = 0
+    <if test="appId != null">
+      AND task_uuid = #{appId}
+    </if>
+    <if test="userUuid != null">
+      AND user_uuid = #{userUuid}
+    </if>
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />

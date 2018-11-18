@@ -15,13 +15,28 @@ public class SUserTaskLog {
 
     private String taskUuid;
 
-    private Integer userUuid;
+    private String userUuid;
 
     private Date commitTime;
 
     private Integer val;
 
     private String remark;
+
+    public SUserTaskLog() {
+    }
+
+    public SUserTaskLog(String operator, String taskUuid, String userUuid, Date commitTime, Integer val, String remark) {
+        this.gmtCreate = new Date();
+        this.gmtModified = gmtCreate;
+        this.isDel = (byte)0;
+        this.operator = operator;
+        this.taskUuid = taskUuid;
+        this.userUuid = userUuid;
+        this.commitTime = commitTime;
+        this.val = val;
+        this.remark = remark;
+    }
 
     public Integer getId() {
         return id;
@@ -71,11 +86,11 @@ public class SUserTaskLog {
         this.taskUuid = taskUuid == null ? null : taskUuid.trim();
     }
 
-    public Integer getUserUuid() {
+    public String getUserUuid() {
         return userUuid;
     }
 
-    public void setUserUuid(Integer userUuid) {
+    public void setUserUuid(String userUuid) {
         this.userUuid = userUuid;
     }
 
