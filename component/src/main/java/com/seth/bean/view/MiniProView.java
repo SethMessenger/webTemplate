@@ -25,8 +25,9 @@ public class MiniProView {
     private int sort;
     private int timeSort;
     private double hotSort;
+    private boolean completeStatus;
 
-    public MiniProView(MiniProTypeEnum typeEnum) {
+    public MiniProView(MiniProTypeEnum typeEnum, boolean completeStatus) {
         this.appId = typeEnum.getAppId();
         this.appName = typeEnum.getAppName();
         this.appSecret = typeEnum.getAppSecret();
@@ -42,6 +43,7 @@ public class MiniProView {
         this.sort = typeEnum.getSort();
         this.timeSort = typeEnum.getTimeSort();
         this.hotSort = typeEnum.getHotSort();
+        this.completeStatus = completeStatus;
     }
 
     public String getAppId() {
@@ -154,5 +156,13 @@ public class MiniProView {
 
     public void setHotSort(double hotSort) {
         this.hotSort = hotSort;
+    }
+
+    public boolean isCompleteStatus() {
+        return completeStatus;
+    }
+
+    public void setCompleteStatus(boolean completeStatus) {
+        this.completeStatus = completeStatus;
     }
 }

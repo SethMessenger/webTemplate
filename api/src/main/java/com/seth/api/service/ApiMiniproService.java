@@ -12,11 +12,11 @@ import java.util.List;
  */
 public interface ApiMiniproService {
 
-    List<MiniProView> queryNewMinis();
+    List<MiniProView> queryNewMinis(String openId);
 
-    List<MiniProView> queryHotMinis();
+    List<MiniProView> queryHotMinis(String openId);
 
-    List<MiniProView> queryAllMinis();
+    List<MiniProView> queryAllMinis(String openId);
 
-    List<BannerView> queryBanners();
+    List<BannerView> queryBanners(String openId);
 }

@@ -8,10 +8,14 @@ import com.seth.bean.form.UserRegisterForm;
 import com.seth.bean.view.UserView;
 import com.seth.component.common.ErrorCodeEnum;
 import com.seth.dao.domain.SUser;
+import com.seth.dao.domain.SUserTaskLog;
+import com.seth.dao.mapper.SUserTaskLogMapper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @author  xunbo.xu
@@ -24,6 +28,8 @@ public class ApiUserController {
 
     @Autowired
     private ApiUserServiceImpl userService;
+    @Autowired
+    private SUserTaskLogMapper taskLogMapper;
 
     /**
      * 用户微信登录注册
@@ -69,9 +75,16 @@ public class ApiUserController {
             if(StringUtils.isNotEmpty(openId)){
                 SUser user = this.userService.queryUserByOpenId(openId);
                 if(null != user){
+                    List<SUserTaskLog> logs = this.taskLogMapper.selectByParams(null, user.getUserUuid());
+                    Integer completeNum = 0;
+                    Integer lastCoins = 0;
+                    completeNum = logs.size();
+                    for (SUserTaskLog log : logs){
+                        lastCoins += log.getVal();
+                    }
                     //TODO  新增用户账户和任务系统查询
                     resultView = new UserView(user.getUserUuid(), user.getOpenId(), user.getUnionId(), user.getHeadImg(), user.getGender(),
-                            user.getTotal(), 0, 0, 0, 0, 0);
+                            user.getTotal(), 0, completeNum, 0, 0, lastCoins);
                     view = new ObjectView<UserView>(resultView);
                 }else {
                     view = new MessageView(ErrorCodeEnum.PARAM_ERROR, "用户不存在");

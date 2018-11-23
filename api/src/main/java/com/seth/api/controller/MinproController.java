@@ -8,6 +8,7 @@ import com.seth.bean.view.MiniProView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -28,8 +29,8 @@ public class MinproController {
      * @return
      */
     @RequestMapping("banners")
-    public BaseView querybanners(){
-        List<BannerView> views =  this.miniproService.queryBanners();
+    public BaseView querybanners(@RequestParam(required = false) String openId){
+        List<BannerView> views =  this.miniproService.queryBanners(openId);
         return new ObjectView<List<BannerView>>(views);
     }
 
@@ -38,8 +39,8 @@ public class MinproController {
      * @return
      */
     @RequestMapping("newlist")
-    public BaseView queryNewMinis(){
-        List<MiniProView> views =  this.miniproService.queryNewMinis();
+    public BaseView queryNewMinis(@RequestParam(required = false) String openId){
+        List<MiniProView> views =  this.miniproService.queryNewMinis(openId);
         return new ObjectView<List<MiniProView>>(views);
     }
 
@@ -48,8 +49,8 @@ public class MinproController {
      * @return
      */
     @RequestMapping("hotlist")
-    public BaseView queryHotMinis(){
-        List<MiniProView> views =  this.miniproService.queryHotMinis();
+    public BaseView queryHotMinis(@RequestParam(required = false) String openId){
+        List<MiniProView> views =  this.miniproService.queryHotMinis(openId);
         return new ObjectView<List<MiniProView>>(views);
     }
 
@@ -58,8 +59,8 @@ public class MinproController {
      * @return
      */
     @RequestMapping("list")
-    public BaseView queryAllMinis(){
-        List<MiniProView> views =  this.miniproService.queryAllMinis();
+    public BaseView queryAllMinis(@RequestParam(required = false) String openId){
+        List<MiniProView> views =  this.miniproService.queryAllMinis(openId);
         return new ObjectView<List<MiniProView>>(views);
     }
 

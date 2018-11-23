@@ -69,12 +69,12 @@ CREATE TABLE `s_user_task_log` (
   `is_del` tinyint(2) NOT NULL COMMENT '是否删除 0未删除 1删除',
   `operator` varchar(32) NOT NULL DEFAULT '' COMMENT '操作人uuid',
   `task_uuid` varchar(32) NOT NULL DEFAULT '' COMMENT '日志uuid',
-  `user_uuid` int(1) NOT NULL COMMENT '价值，可转换的赚币数量',
+  `user_uuid` varchar(32) NOT NULL DEFAULT '',
   `commit_time` date NOT NULL COMMENT '任务完成时间',
-  `val` int(1) NOT NULL COMMENT '任务价值',
+  `val` int(1) NOT NULL COMMENT '任务价值价值，可转换的赚币数量',
   `remark` varchar(32) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 
 
 /*
@@ -100,4 +100,4 @@ CREATE TABLE `s_user_coin_log` (
   `description` varchar(312) DEFAULT '' COMMENT '账目描述',
   `remark` varchar(32) DEFAULT NULL COMMENT '账户变动备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4;

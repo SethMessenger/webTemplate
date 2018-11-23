@@ -4,6 +4,14 @@ import com.seth.api.service.ApiMiniproService;
 import com.seth.bean.view.BannerView;
 import com.seth.bean.view.MiniProView;
 import com.seth.component.common.MiniProTypeEnum;
+import com.seth.dao.domain.SUser;
+import com.seth.dao.domain.SUserTaskLog;
+import com.seth.dao.mapper.SUserMapper;
+import com.seth.dao.mapper.SUserTaskLogMapper;
+import com.seth.dao.queryform.UserQueryForm;
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -19,9 +27,14 @@ import java.util.List;
 @Service
 public class ApiMiniproServiceImpl implements ApiMiniproService{
 
+    @Autowired
+    private SUserTaskLogMapper taskLogMapper;
+    @Autowired
+    private SUserMapper userMapper;
+
     @Override
-    public List<MiniProView> queryNewMinis() {
-        List<MiniProView> views = this.queryAllMinis();
+    public List<MiniProView> queryNewMinis(String openId) {
+        List<MiniProView> views = this.queryAllMinis(openId);
         Comparator<MiniProView> miniProComparator = new Comparator<MiniProView>() {
             @Override
             public int compare(MiniProView o1, MiniProView o2) {
@@ -33,8 +46,8 @@ public class ApiMiniproServiceImpl implements ApiMiniproService{
     }
 
     @Override
-    public List<MiniProView> queryHotMinis() {
-        List<MiniProView> views = this.queryAllMinis();
+    public List<MiniProView> queryHotMinis(String openId) {
+        List<MiniProView> views = this.queryAllMinis(openId);
         Comparator<MiniProView> miniProComparator = new Comparator<MiniProView>() {
             @Override
             public int compare(MiniProView o1, MiniProView o2) {
@@ -47,18 +60,33 @@ public class ApiMiniproServiceImpl implements ApiMiniproService{
     }
 
     @Override
-    public List<MiniProView> queryAllMinis() {
+    public List<MiniProView> queryAllMinis(String openId) {
         List<MiniProTypeEnum> enums = MiniProTypeEnum.getAll();
         List<MiniProView> views = new ArrayList<MiniProView>();
+        List<SUserTaskLog> logs = new ArrayList<>();
+        if(StringUtils.isNotEmpty(openId)){
+            UserQueryForm form = new UserQueryForm();
+            form.setOpenId(openId);
+            List<SUser> users = this.userMapper.selectByQueryForm(form);
+            if(CollectionUtils.isNotEmpty(users)){
+                logs = this.taskLogMapper.selectByParams(null, users.get(0).getUserUuid());
+            }
+        }
         for (MiniProTypeEnum e : enums){
-            MiniProView view = new MiniProView(e);
+            boolean isComplete = false;
+            for (SUserTaskLog log : logs){
+                if(log.getTaskUuid().equals(e.getAppId())){
+                    isComplete = true;
+                }
+            }
+            MiniProView view = new MiniProView(e, isComplete);
             views.add(view);
         }
         return views;
     }
 
     @Override
-    public List<BannerView> queryBanners() {
+    public List<BannerView> queryBanners(String openId) {
         List<MiniProTypeEnum> enums = MiniProTypeEnum.getAll();
         List<BannerView> banners = new ArrayList<BannerView>();
         for (MiniProTypeEnum e : enums){

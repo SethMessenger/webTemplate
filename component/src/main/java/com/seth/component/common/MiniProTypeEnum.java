@@ -2,7 +2,6 @@ package com.seth.component.common;
 
 import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
